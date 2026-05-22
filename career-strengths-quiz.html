@@ -1,0 +1,951 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>What kind of work suits you? — Your Meaning Now</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Public+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --navy-900: #142A55;
+    --navy-800: #1B3667;
+    --navy-700: #234280;
+    --parchment: #FBF8F1;
+    --ink: #0B0F18;
+    --lilac: #C9B7E8;
+    --plum: #B8A5D9;
+    --sky: #A8CCE4;
+    --muted: #8A8A8A;
+    --border: rgba(20, 42, 85, 0.12);
+    --border-strong: rgba(20, 42, 85, 0.25);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--parchment);
+    color: var(--ink);
+    font-family: 'Public Sans', sans-serif;
+    font-weight: 400;
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 18px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(251, 248, 241, 0.92);
+    backdrop-filter: blur(8px);
+    border-bottom: 0.5px solid var(--border);
+  }
+
+  .nav-brand {
+    font-family: 'Public Sans', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--navy-800);
+    text-decoration: none;
+  }
+
+  .nav-label {
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  /* LAYOUT */
+  .page {
+    display: none;
+    min-height: 100vh;
+    padding-top: 72px;
+  }
+  .page.active { display: block; }
+
+  /* ── INTRO ── */
+  .intro-wrap {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 80px 32px 60px;
+    text-align: center;
+  }
+
+  .intro-eyebrow {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--plum);
+    margin-bottom: 24px;
+  }
+
+  .intro-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(36px, 6vw, 54px);
+    font-weight: 400;
+    line-height: 1.1;
+    color: var(--navy-900);
+    margin-bottom: 24px;
+  }
+
+  .intro-title em {
+    font-style: italic;
+    color: var(--plum);
+  }
+
+  .intro-body {
+    font-size: 16px;
+    line-height: 1.75;
+    color: #555;
+    max-width: 460px;
+    margin: 0 auto 48px;
+  }
+
+  .stats-row {
+    display: flex;
+    justify-content: center;
+    gap: 48px;
+    margin-bottom: 48px;
+    padding: 28px 0;
+    border-top: 0.5px solid var(--border);
+    border-bottom: 0.5px solid var(--border);
+  }
+
+  .stat-item { text-align: center; }
+
+  .stat-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 32px;
+    font-weight: 400;
+    color: var(--navy-900);
+    display: block;
+  }
+
+  .stat-lbl {
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-top: 4px;
+    display: block;
+  }
+
+  .context-note {
+    background: white;
+    border: 0.5px solid var(--border);
+    border-radius: 12px;
+    padding: 20px 24px;
+    text-align: left;
+    margin-bottom: 40px;
+  }
+
+  .context-note-label {
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--plum);
+    font-weight: 500;
+    margin-bottom: 8px;
+  }
+
+  .context-note p {
+    font-size: 14px;
+    line-height: 1.65;
+    color: #555;
+  }
+
+  /* ── QUIZ ── */
+  .quiz-wrap {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 40px 32px 80px;
+  }
+
+  .progress-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+
+  .progress-type {
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--plum);
+    font-weight: 500;
+  }
+
+  .progress-count {
+    font-size: 12px;
+    color: var(--muted);
+  }
+
+  .progress-track {
+    height: 2px;
+    background: var(--border);
+    border-radius: 1px;
+    margin-bottom: 48px;
+  }
+
+  .progress-fill {
+    height: 2px;
+    background: var(--navy-800);
+    border-radius: 1px;
+    transition: width 0.5s ease;
+  }
+
+  .q-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(20px, 3.5vw, 26px);
+    font-weight: 400;
+    line-height: 1.4;
+    color: var(--navy-900);
+    margin-bottom: 36px;
+  }
+
+  /* Forced choice */
+  .choice-btn {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    width: 100%;
+    text-align: left;
+    padding: 20px 22px;
+    margin-bottom: 12px;
+    background: white;
+    border: 0.5px solid var(--border);
+    border-radius: 12px;
+    font-family: 'Public Sans', sans-serif;
+    font-size: 15px;
+    line-height: 1.55;
+    color: #444;
+    cursor: pointer;
+    transition: border-color 0.2s, background 0.2s, transform 0.1s;
+  }
+
+  .choice-btn:hover {
+    border-color: var(--navy-700);
+    background: rgba(255,255,255,0.8);
+    transform: translateY(-1px);
+  }
+
+  .choice-btn.selected {
+    border: 1.5px solid var(--navy-800);
+    background: white;
+    color: var(--navy-900);
+  }
+
+  .choice-letter {
+    flex-shrink: 0;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: rgba(20,42,85,0.07);
+    font-size: 11px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--navy-800);
+    margin-top: 1px;
+    transition: background 0.2s, color 0.2s;
+  }
+
+  .choice-btn.selected .choice-letter {
+    background: var(--navy-800);
+    color: var(--parchment);
+  }
+
+  /* Likert */
+  .likert-statement {
+    font-size: 15px;
+    line-height: 1.65;
+    color: #555;
+    background: white;
+    border: 0.5px solid var(--border);
+    border-radius: 12px;
+    padding: 20px 22px;
+    margin-bottom: 28px;
+    font-style: italic;
+  }
+
+  .likert-row {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+
+  .likert-btn {
+    flex: 1;
+    padding: 14px 4px;
+    background: white;
+    border: 0.5px solid var(--border);
+    border-radius: 10px;
+    font-family: 'Public Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--navy-900);
+    cursor: pointer;
+    text-align: center;
+    transition: border-color 0.2s, background 0.2s;
+  }
+
+  .likert-btn:hover { border-color: var(--navy-700); }
+
+  .likert-btn.selected {
+    border: 1.5px solid var(--navy-800);
+    background: var(--navy-900);
+    color: var(--parchment);
+  }
+
+  .likert-labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.04em;
+    margin-bottom: 32px;
+    padding: 0 2px;
+  }
+
+  /* Nav buttons */
+  .nav-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 36px;
+  }
+
+  .btn-primary {
+    padding: 14px 32px;
+    background: var(--navy-900);
+    color: var(--parchment);
+    border: none;
+    border-radius: 8px;
+    font-family: 'Public Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    letter-spacing: 0.02em;
+    transition: background 0.2s, transform 0.1s;
+  }
+
+  .btn-primary:hover { background: var(--navy-800); transform: translateY(-1px); }
+  .btn-primary:active { transform: translateY(0); }
+  .btn-primary:disabled { opacity: 0.3; cursor: not-allowed; transform: none; }
+
+  .btn-ghost {
+    padding: 14px 20px;
+    background: transparent;
+    border: 0.5px solid var(--border-strong);
+    border-radius: 8px;
+    font-family: 'Public Sans', sans-serif;
+    font-size: 14px;
+    color: var(--muted);
+    cursor: pointer;
+    transition: border-color 0.2s, color 0.2s;
+  }
+
+  .btn-ghost:hover { border-color: var(--navy-700); color: var(--navy-800); }
+
+  /* ── RESULTS ── */
+  .results-wrap {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 48px 32px 100px;
+  }
+
+  .results-eyebrow {
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--plum);
+    font-weight: 500;
+    margin-bottom: 12px;
+  }
+
+  .results-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(28px, 5vw, 42px);
+    font-weight: 400;
+    color: var(--navy-900);
+    line-height: 1.15;
+    margin-bottom: 8px;
+  }
+
+  .results-sub {
+    font-size: 15px;
+    color: #777;
+    line-height: 1.65;
+    margin-bottom: 48px;
+    max-width: 520px;
+  }
+
+  .section-heading {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-weight: 400;
+    color: var(--navy-900);
+    margin-bottom: 6px;
+  }
+
+  .section-sub {
+    font-size: 13px;
+    color: #888;
+    margin-bottom: 20px;
+    line-height: 1.5;
+  }
+
+  /* Profile bars */
+  .profile-bar {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 16px 0;
+    border-bottom: 0.5px solid var(--border);
+  }
+
+  .profile-rank {
+    font-size: 11px;
+    color: var(--muted);
+    width: 20px;
+    flex-shrink: 0;
+    text-align: right;
+  }
+
+  .profile-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px;
+    font-weight: 400;
+    color: var(--navy-900);
+    width: 160px;
+    flex-shrink: 0;
+  }
+
+  .top-pill {
+    display: inline-block;
+    font-family: 'Public Sans', sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 2px 8px;
+    background: rgba(185, 165, 217, 0.2);
+    color: var(--navy-800);
+    border-radius: 20px;
+    margin-left: 6px;
+    vertical-align: middle;
+  }
+
+  .bar-track {
+    flex: 1;
+    height: 4px;
+    background: var(--border);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .bar-fill {
+    height: 4px;
+    background: var(--navy-800);
+    border-radius: 2px;
+    width: 0;
+    transition: width 1s ease;
+  }
+
+  .bar-pct {
+    font-size: 13px;
+    color: var(--muted);
+    width: 36px;
+    text-align: right;
+    flex-shrink: 0;
+  }
+
+  /* Job cards */
+  .job-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 8px;
+    margin-bottom: 32px;
+  }
+
+  .job-card {
+    background: white;
+    border: 0.5px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 16px;
+    font-size: 14px;
+    color: #444;
+    line-height: 1.3;
+  }
+
+  .job-card-type {
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--plum);
+    margin-bottom: 6px;
+    font-weight: 500;
+  }
+
+  /* Splay and chain callout */
+  .splay-callout {
+    background: var(--navy-900);
+    border-radius: 16px;
+    padding: 36px 40px;
+    margin-top: 48px;
+    color: var(--parchment);
+  }
+
+  .splay-callout-label {
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--lilac);
+    font-weight: 500;
+    margin-bottom: 12px;
+  }
+
+  .splay-callout h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 26px;
+    font-weight: 400;
+    color: var(--parchment);
+    margin-bottom: 16px;
+    line-height: 1.3;
+  }
+
+  .splay-callout p {
+    font-size: 14px;
+    line-height: 1.75;
+    color: rgba(251,248,241,0.75);
+    margin-bottom: 12px;
+  }
+
+  .splay-steps {
+    list-style: none;
+    margin: 20px 0 28px;
+  }
+
+  .splay-steps li {
+    display: flex;
+    gap: 14px;
+    padding: 12px 0;
+    border-bottom: 0.5px solid rgba(255,255,255,0.1);
+    font-size: 14px;
+    color: rgba(251,248,241,0.85);
+    line-height: 1.55;
+  }
+
+  .splay-steps li:last-child { border-bottom: none; }
+
+  .step-num {
+    flex-shrink: 0;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    border: 0.5px solid rgba(255,255,255,0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    color: var(--lilac);
+    margin-top: 1px;
+  }
+
+  .restart-row {
+    text-align: center;
+    margin-top: 48px;
+    padding-top: 32px;
+    border-top: 0.5px solid var(--border);
+  }
+
+  .restart-btn {
+    font-size: 13px;
+    color: var(--muted);
+    background: none;
+    border: none;
+    cursor: pointer;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    font-family: 'Public Sans', sans-serif;
+  }
+
+  .restart-btn:hover { color: var(--navy-800); }
+
+  /* Divider */
+  .divider {
+    height: 0.5px;
+    background: var(--border);
+    margin: 40px 0;
+  }
+
+  /* Start button */
+  .start-btn {
+    display: inline-block;
+    padding: 16px 40px;
+    background: var(--navy-900);
+    color: var(--parchment);
+    border: none;
+    border-radius: 8px;
+    font-family: 'Public Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    letter-spacing: 0.02em;
+    transition: background 0.2s, transform 0.15s;
+  }
+
+  .start-btn:hover { background: var(--navy-800); transform: translateY(-2px); }
+  .start-btn:active { transform: translateY(0); }
+
+  @media (max-width: 540px) {
+    nav { padding: 16px 20px; }
+    .intro-wrap, .quiz-wrap, .results-wrap { padding-left: 20px; padding-right: 20px; }
+    .stats-row { gap: 24px; }
+    .profile-name { width: 120px; font-size: 16px; }
+    .splay-callout { padding: 28px 24px; }
+    .intro-title { font-size: 32px; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-brand" href="#">Your Meaning Now</a>
+  <span class="nav-label">Phase 1 · Skills inventory</span>
+</nav>
+
+<!-- INTRO -->
+<div class="page active" id="page-intro">
+  <div class="intro-wrap">
+    <p class="intro-eyebrow">Phase 1 · The Village</p>
+    <h1 class="intro-title">What kind of work <em>actually</em> suits you?</h1>
+    <p class="intro-body">Before you start your splay and chain, it helps to know what kinds of labour genuinely energise you. This quiz maps your profile across seven types of work — so your list starts with real data, not guesses.</p>
+
+    <div class="stats-row">
+      <div class="stat-item"><span class="stat-num">35</span><span class="stat-lbl">Questions</span></div>
+      <div class="stat-item"><span class="stat-num">7</span><span class="stat-lbl">Labour types</span></div>
+      <div class="stat-item"><span class="stat-num">~10 min</span><span class="stat-lbl">To complete</span></div>
+    </div>
+
+    <div class="context-note">
+      <p class="context-note-label">How to use this</p>
+      <p>Answer honestly — not how you think you should answer. When you get your results, you will take your top two or three types into the splay and chain exercise in the course. They are a starting point, not a final verdict.</p>
+    </div>
+
+    <button class="start-btn" onclick="startQuiz()">Begin the quiz →</button>
+  </div>
+</div>
+
+<!-- QUIZ -->
+<div class="page" id="page-quiz">
+  <div class="quiz-wrap">
+    <div class="progress-header">
+      <span class="progress-type" id="q-type-label"></span>
+      <span class="progress-count" id="q-count-label"></span>
+    </div>
+    <div class="progress-track"><div class="progress-fill" id="progress-fill"></div></div>
+    <div id="question-area"></div>
+    <div class="nav-row">
+      <button class="btn-ghost" id="back-btn" onclick="goBack()">← Back</button>
+      <button class="btn-primary" id="next-btn" onclick="goNext()" disabled>Next →</button>
+    </div>
+  </div>
+</div>
+
+<!-- RESULTS -->
+<div class="page" id="page-results">
+  <div class="results-wrap">
+    <p class="results-eyebrow">Your results</p>
+    <h2 class="results-title">Your labour profile.</h2>
+    <p class="results-sub">Ranked by how strongly each type showed up for you. This is a snapshot based on your honest answers today — treat it as useful data, not a label.</p>
+
+    <div id="profile-bars"></div>
+
+    <div class="divider"></div>
+
+    <h3 class="section-heading">Job areas to explore</h3>
+    <p class="section-sub">Based on your top three types. These are directions, not job offers. Use them to seed your splay.</p>
+    <div id="job-grid-wrap"></div>
+
+    <div class="splay-callout" id="splay-callout">
+      <p class="splay-callout-label">What to do next</p>
+      <h3>Now take this into your<br>splay and chain.</h3>
+      <p>Your labour profile is the first layer of data for your splay and chain exercise. Here is how to use it:</p>
+      <ol class="splay-steps">
+        <li>
+          <span class="step-num">1</span>
+          <span>Note your <strong>top two or three labour types</strong> from your profile above. These are the kinds of work that genuinely energise you.</span>
+        </li>
+        <li>
+          <span class="step-num">2</span>
+          <span>Open your splay — the prompted brainstorm in the course. Let your top types guide you as you write. What roles, projects, or fields involve a lot of this kind of work?</span>
+        </li>
+        <li>
+          <span class="step-num">3</span>
+          <span>Use the job areas above as <strong>sparks, not constraints</strong>. Add anything they remind you of. The point is to get everything on paper without filtering.</span>
+        </li>
+        <li>
+          <span class="step-num">4</span>
+          <span>Once you have your splay down, build your chain — order the items from least to most meaningful to try. Your labour profile can help you sense-check the order.</span>
+        </li>
+      </ol>
+      <p style="font-size:13px; color:rgba(251,248,241,0.55);">Remember: this is data, not destiny. Finding your meaning is iterative. This quiz has given you a better starting point — the rest is walking the road.</p>
+    </div>
+
+    <div class="restart-row">
+      <button class="restart-btn" onclick="restartQuiz()">Retake the quiz from the beginning</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const TYPES = [
+  { id: 'physical', label: 'Physical', desc: 'Working with your body, making and fixing things with your hands.' },
+  { id: 'analytical', label: 'Analytical', desc: 'Reasoning through problems, working with data and logic.' },
+  { id: 'creative', label: 'Creative', desc: 'Making things — designing, writing, building from imagination.' },
+  { id: 'social', label: 'Social & relational', desc: 'Helping, teaching, caring for, and connecting with people.' },
+  { id: 'persuasive', label: 'Persuasive', desc: 'Influencing others — selling, leading, negotiating.' },
+  { id: 'organisational', label: 'Organisational', desc: 'Systems, coordination, detail, and keeping things running smoothly.' },
+  { id: 'technical', label: 'Technical', desc: 'Operating, building, and engineering with tools, machines, or code.' }
+];
+
+const JOBS = {
+  physical: ['Personal trainer', 'Physiotherapist', 'Chef', 'Carpenter / joinery', 'Sports coach', 'Landscape gardener', 'Osteopath', 'Firefighter'],
+  analytical: ['Data analyst', 'Research scientist', 'Economist', 'Actuary', 'Management consultant', 'Financial analyst', 'Policy researcher', 'Market researcher'],
+  creative: ['Graphic designer', 'Filmmaker / director', 'Copywriter', 'Architect', 'UX designer', 'Photographer', 'Game designer', 'Journalist'],
+  social: ['Therapist / counsellor', 'Teacher', 'Social worker', 'Nurse', 'HR manager', 'Community organiser', 'Career coach', 'Youth worker'],
+  persuasive: ['Sales executive', 'Lawyer', 'Marketing manager', 'Recruiter', 'Business development', 'Political campaigner', 'PR consultant', 'Entrepreneur'],
+  organisational: ['Project manager', 'Operations manager', 'Event planner', 'Executive assistant', 'Supply chain manager', 'Compliance officer', 'Account manager', 'Logistics coordinator'],
+  technical: ['Software engineer', 'Electrical engineer', 'Mechatronic engineer', 'DevOps / SRE', 'Systems analyst', 'Robotics technician', 'Network engineer', 'Biomedical engineer']
+};
+
+const QS = [
+  { type: 'physical', format: 'fc', text: 'You have a free afternoon. Which sounds more satisfying?', a: 'Build or fix something with your hands — a piece of furniture, a bike, something around the house.', b: 'Sit down and work through a complicated problem on paper.' },
+  { type: 'physical', format: 'likert', text: 'When I have been physically active during work or a project, I feel more satisfied than when I have been sitting still.' },
+  { type: 'physical', format: 'fc', text: 'Think about a job you would genuinely enjoy. Which pulls you more?', a: 'A role where most of your day involves moving, making, or using your body.', b: 'A role where most of your day involves thinking, communicating, or creating at a desk.' },
+  { type: 'physical', format: 'likert', text: 'I find I do my best thinking when I am doing something with my hands, not just sitting still.' },
+  { type: 'physical', format: 'fc', text: 'A project gets delivered. Which version of "I built this" feels better to you?', a: 'A physical object — you can hold it, touch it, see it in the world.', b: 'A piece of work that exists in a document, a system, or a campaign.' },
+
+  { type: 'analytical', format: 'fc', text: 'A friend shows you an interesting puzzle or dataset. What is your gut reaction?', a: 'Lean in — you want to find the pattern or the answer.', b: 'It looks interesting but you would rather hear the conclusion than work through it yourself.' },
+  { type: 'analytical', format: 'likert', text: 'I genuinely enjoy pulling apart a problem to understand how it works, even when there is no clear answer.' },
+  { type: 'analytical', format: 'fc', text: 'You are given a complex report. Which feels more natural?', a: 'Work through the data and figures yourself to form your own view.', b: 'Read the executive summary, get the key points, and move on.' },
+  { type: 'analytical', format: 'likert', text: 'I find abstract thinking — working with ideas, numbers, or logic rather than people or things — energising rather than draining.' },
+  { type: 'analytical', format: 'fc', text: 'Two aspects of a job — which would you prefer to spend more time on?', a: 'Research, analysis, and building a well-reasoned view from evidence.', b: 'Taking a decision and putting it into action, even without perfect information.' },
+
+  { type: 'creative', format: 'fc', text: 'You are given an open brief — no constraints, make whatever you want. How do you feel?', a: 'Energised — this is what you live for.', b: 'A bit lost — you work better with structure and clear parameters.' },
+  { type: 'creative', format: 'likert', text: 'Making things — whether writing, designing, composing, or building — is something I find genuinely absorbing, not just as a hobby.' },
+  { type: 'creative', format: 'fc', text: 'A project needs someone to either refine an existing process or invent something new. Which fits you better?', a: 'Invent something new — starting from a blank page is exciting.', b: 'Refine and improve — you would rather make something good, great.' },
+  { type: 'creative', format: 'likert', text: 'When I am working on something creative, I lose track of time more easily than in almost any other kind of work.' },
+  { type: 'creative', format: 'fc', text: 'Think about creative people you admire. What is your honest reaction?', a: 'I want that — creating things is something I actually want to do as work, not just occasionally.', b: 'I appreciate their work but I do not feel that same pull toward making things myself.' },
+
+  { type: 'social', format: 'fc', text: 'A colleague is struggling. What is your instinct?', a: 'You naturally want to help — listening to them and working through it together.', b: 'You want to help but find it more draining than energising after a while.' },
+  { type: 'social', format: 'likert', text: 'Work that involves genuinely helping or supporting other people feels more meaningful to me than work I do mostly on my own.' },
+  { type: 'social', format: 'fc', text: 'Two kinds of days — which would you rather have more of?', a: 'Days where your impact comes from the people you help, support, or develop.', b: 'Days where your impact comes from the work you produce or the problems you solve.' },
+  { type: 'social', format: 'likert', text: 'I find that understanding why someone thinks or feels the way they do is genuinely interesting to me, not just useful.' },
+  { type: 'social', format: 'fc', text: 'You are good at your job. What kind of "good" feels most like you?', a: 'People trust you — they come to you when they need support, guidance, or a straight conversation.', b: 'You deliver — your output is consistently strong and reliable.' },
+
+  { type: 'persuasive', format: 'fc', text: 'You want to change someone\'s mind. Honestly, what is your experience of that?', a: 'You enjoy it — you like making the case, handling objections, and bringing someone around.', b: 'It feels necessary sometimes, but it is not something you seek out.' },
+  { type: 'persuasive', format: 'likert', text: 'I feel genuinely energised when I am making a case, pitching an idea, or trying to win someone over to a point of view.' },
+  { type: 'persuasive', format: 'fc', text: 'Two job descriptions — which sounds more like you?', a: 'A role where you are regularly selling, negotiating, or leading people toward a decision.', b: 'A role where influence is occasional — mostly you get on with the work itself.' },
+  { type: 'persuasive', format: 'likert', text: 'When I believe in something strongly, I find it natural to bring other people with me — that comes fairly easily.' },
+  { type: 'persuasive', format: 'fc', text: 'Closing a deal or winning someone over — how does that feel when it goes well?', a: 'One of the most satisfying feelings in work — it is a real rush.', b: 'Good, but not the thing that gets you out of bed in the morning.' },
+
+  { type: 'organisational', format: 'fc', text: 'A big project is underway. Which role suits you better?', a: 'Coordinating all the moving parts — making sure everything is tracked, on time, and nothing slips.', b: 'Doing one of the major pieces of work well, and trusting others to handle coordination.' },
+  { type: 'organisational', format: 'likert', text: 'When things are chaotic or disorganised around me, I naturally want to bring order — it bothers me more than it bothers most people.' },
+  { type: 'organisational', format: 'fc', text: 'Two aspects of a working day — which sounds more appealing?', a: 'A clear list of things to get through, with the satisfaction of completing each one.', b: 'An open, exploratory day where you follow whatever pulls your interest.' },
+  { type: 'organisational', format: 'likert', text: 'I genuinely enjoy planning, scheduling, and making sure complex things run smoothly — it feels rewarding, not tedious.' },
+  { type: 'organisational', format: 'fc', text: 'You notice a process that could be made more efficient. What do you feel?', a: 'A real urge to fix it — inefficiency genuinely bothers you and improving it is satisfying.', b: 'It is mildly annoying but you can live with it — not the thing you want to spend energy on.' },
+
+  { type: 'technical', format: 'fc', text: 'You encounter a technical system you do not understand — a piece of code, a machine, a complex tool. What is your reaction?', a: 'You want to understand how it works — getting under the hood is satisfying.', b: 'You want it to work; how it works is not especially interesting to you.' },
+  { type: 'technical', format: 'likert', text: 'Building or working with technical systems — code, machines, hardware, or complex tools — is something I find genuinely interesting, not just a means to an end.' },
+  { type: 'technical', format: 'fc', text: 'Two colleagues — which sounds more like you?', a: 'The one who goes deep on the technical side — they can always be relied on to understand how things actually work.', b: 'The one who understands what the technical systems do and uses them well, without going into the weeds.' },
+  { type: 'technical', format: 'likert', text: 'When something breaks or behaves unexpectedly, I am more likely to want to diagnose it myself than to hand it to someone else.' },
+  { type: 'technical', format: 'fc', text: 'Think about a product or system you really respect. What draws you to it?', a: 'How it was built — the technical architecture or engineering behind it is what interests you.', b: 'What it does for people — the technical side is not what draws you.' }
+];
+
+function shuffle(arr) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+const shuffledQs = (function() {
+  const byType = {};
+  TYPES.forEach(t => { byType[t.id] = []; });
+  QS.forEach(q => byType[q.type].push(q));
+  TYPES.forEach(t => { byType[t.id] = shuffle(byType[t.id]); });
+  const interleaved = [];
+  for (let i = 0; i < 5; i++) {
+    TYPES.forEach(t => interleaved.push(byType[t.id][i]));
+  }
+  return interleaved;
+})();
+
+let currentQ = 0;
+let answers = {};
+
+function showPage(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+function startQuiz() {
+  showPage('page-quiz');
+  renderQuestion();
+}
+
+function renderQuestion() {
+  const q = shuffledQs[currentQ];
+  const total = shuffledQs.length;
+  const pct = Math.round((currentQ / total) * 100);
+  const typeInfo = TYPES.find(t => t.id === q.type);
+  const ans = answers[currentQ];
+
+  document.getElementById('q-type-label').textContent = typeInfo.label;
+  document.getElementById('q-count-label').textContent = `${currentQ + 1} of ${total}`;
+  document.getElementById('progress-fill').style.width = pct + '%';
+  document.getElementById('back-btn').style.display = currentQ === 0 ? 'none' : 'inline-block';
+
+  const nextBtn = document.getElementById('next-btn');
+  nextBtn.textContent = currentQ === total - 1 ? 'See my results →' : 'Next →';
+  nextBtn.disabled = ans === undefined;
+
+  const area = document.getElementById('question-area');
+
+  if (q.format === 'fc') {
+    area.innerHTML = `
+      <p class="q-text">${q.text}</p>
+      <button class="choice-btn ${ans === 'a' ? 'selected' : ''}" onclick="selectFC('a')">
+        <span class="choice-letter">A</span>
+        <span>${q.a}</span>
+      </button>
+      <button class="choice-btn ${ans === 'b' ? 'selected' : ''}" onclick="selectFC('b')">
+        <span class="choice-letter">B</span>
+        <span>${q.b}</span>
+      </button>
+    `;
+  } else {
+    area.innerHTML = `
+      <p class="q-text">"${q.text}"</p>
+      <div class="likert-row">
+        ${[1,2,3,4,5].map(v => `<button class="likert-btn ${ans === v ? 'selected' : ''}" onclick="selectLikert(${v})">${v}</button>`).join('')}
+      </div>
+      <div class="likert-labels"><span>Strongly disagree</span><span>Strongly agree</span></div>
+    `;
+  }
+}
+
+function selectFC(val) {
+  answers[currentQ] = val;
+  renderQuestion();
+}
+
+function selectLikert(val) {
+  answers[currentQ] = val;
+  renderQuestion();
+}
+
+function goNext() {
+  if (answers[currentQ] === undefined) return;
+  if (currentQ === shuffledQs.length - 1) {
+    buildResults();
+    showPage('page-results');
+  } else {
+    currentQ++;
+    renderQuestion();
+  }
+}
+
+function goBack() {
+  if (currentQ > 0) { currentQ--; renderQuestion(); }
+}
+
+function calcScores() {
+  const scores = {};
+  const maxes = {};
+  TYPES.forEach(t => { scores[t.id] = 0; maxes[t.id] = 0; });
+  shuffledQs.forEach((q, idx) => {
+    if (q.format === 'fc') maxes[q.type] += 2;
+    else maxes[q.type] += 5;
+    const ans = answers[idx];
+    if (ans === undefined) return;
+    if (q.format === 'fc') { if (ans === 'a') scores[q.type] += 2; }
+    else scores[q.type] += ans;
+  });
+  return TYPES.map(t => ({
+    ...t,
+    score: scores[t.id],
+    max: maxes[t.id],
+    pct: Math.round((scores[t.id] / maxes[t.id]) * 100)
+  })).sort((a, b) => b.pct - a.pct);
+}
+
+function buildResults() {
+  const ranked = calcScores();
+  const top3 = ranked.slice(0, 3);
+
+  // Profile bars
+  const barsEl = document.getElementById('profile-bars');
+  barsEl.innerHTML = ranked.map((t, i) => `
+    <div class="profile-bar">
+      <span class="profile-rank">${i + 1}</span>
+      <span class="profile-name">${t.label}${i === 0 ? '<span class="top-pill">Top</span>' : ''}</span>
+      <div class="bar-track"><div class="bar-fill" style="width:0%" data-pct="${t.pct}"></div></div>
+      <span class="bar-pct">${t.pct}%</span>
+    </div>
+  `).join('');
+
+  // Animate bars after paint
+  requestAnimationFrame(() => {
+    setTimeout(() => {
+      document.querySelectorAll('.bar-fill').forEach(el => {
+        el.style.width = el.dataset.pct + '%';
+      });
+    }, 100);
+  });
+
+  // Job grid
+  const gridEl = document.getElementById('job-grid-wrap');
+  gridEl.innerHTML = top3.map(t => {
+    const jobs = shuffle(JOBS[t.id]).slice(0, 5);
+    return `
+      <div style="margin-bottom: 20px;">
+        <p class="job-card-type">${t.label}</p>
+        <div class="job-grid">
+          ${jobs.map(j => `<div class="job-card">${j}</div>`).join('')}
+        </div>
+      </div>
+    `;
+  }).join('');
+
+  // Personalise splay callout with top types
+  const topNames = top3.map(t => t.label.toLowerCase()).join(', ');
+  document.querySelector('.splay-callout h3').innerHTML = `Now take this into your<br>splay and chain.`;
+}
+
+function restartQuiz() {
+  answers = {};
+  currentQ = 0;
+  showPage('page-intro');
+}
+</script>
+</body>
+</html>
