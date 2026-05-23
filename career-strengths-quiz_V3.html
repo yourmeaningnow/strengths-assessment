@@ -1,0 +1,1586 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>What kind of work suits you? — Your Meaning Now</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Public+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --navy-900: #142A55;
+    --navy-800: #1B3667;
+    --navy-700: #234280;
+    --parchment: #FBF8F1;
+    --ink: #0B0F18;
+    --lilac: #C9B7E8;
+    --plum: #B8A5D9;
+    --sky: #A8CCE4;
+    --muted: #8A8A8A;
+    --border: rgba(20, 42, 85, 0.12);
+    --border-strong: rgba(20, 42, 85, 0.25);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--parchment);
+    color: var(--ink);
+    font-family: 'Public Sans', sans-serif;
+    font-weight: 400;
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 18px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(251, 248, 241, 0.92);
+    backdrop-filter: blur(8px);
+    border-bottom: 0.5px solid var(--border);
+  }
+
+  .nav-brand {
+    font-family: 'Public Sans', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--navy-800);
+    text-decoration: none;
+  }
+
+  .nav-label {
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  /* LAYOUT */
+  .page {
+    display: none;
+    min-height: 100vh;
+    padding-top: 72px;
+  }
+  .page.active { display: block; }
+
+  /* ── INTRO ── */
+  .intro-wrap {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 80px 32px 60px;
+    text-align: center;
+  }
+
+  .intro-eyebrow {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--plum);
+    margin-bottom: 24px;
+  }
+
+  .intro-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(36px, 6vw, 54px);
+    font-weight: 400;
+    line-height: 1.1;
+    color: var(--navy-900);
+    margin-bottom: 24px;
+  }
+
+  .intro-title em {
+    font-style: italic;
+    color: var(--plum);
+  }
+
+  .intro-body {
+    font-size: 16px;
+    line-height: 1.75;
+    color: #555;
+    max-width: 460px;
+    margin: 0 auto 48px;
+  }
+
+  .stats-row {
+    display: flex;
+    justify-content: center;
+    gap: 48px;
+    margin-bottom: 48px;
+    padding: 28px 0;
+    border-top: 0.5px solid var(--border);
+    border-bottom: 0.5px solid var(--border);
+  }
+
+  .stat-item { text-align: center; }
+
+  .stat-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 32px;
+    font-weight: 400;
+    color: var(--navy-900);
+    display: block;
+  }
+
+  .stat-lbl {
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-top: 4px;
+    display: block;
+  }
+
+  .context-note {
+    background: white;
+    border: 0.5px solid var(--border);
+    border-radius: 12px;
+    padding: 20px 24px;
+    text-align: left;
+    margin-bottom: 40px;
+  }
+
+  .context-note-label {
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--plum);
+    font-weight: 500;
+    margin-bottom: 8px;
+  }
+
+  .context-note p {
+    font-size: 14px;
+    line-height: 1.65;
+    color: #555;
+  }
+
+  /* ── QUIZ ── */
+  .quiz-wrap {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 40px 32px 80px;
+  }
+
+  .progress-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+
+  .progress-type {
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--plum);
+    font-weight: 500;
+  }
+
+  .progress-count {
+    font-size: 12px;
+    color: var(--muted);
+  }
+
+  .progress-track {
+    height: 2px;
+    background: var(--border);
+    border-radius: 1px;
+    margin-bottom: 48px;
+  }
+
+  .progress-fill {
+    height: 2px;
+    background: var(--navy-800);
+    border-radius: 1px;
+    transition: width 0.5s ease;
+  }
+
+  .q-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(20px, 3.5vw, 26px);
+    font-weight: 400;
+    line-height: 1.4;
+    color: var(--navy-900);
+    margin-bottom: 36px;
+  }
+
+  /* Forced choice */
+  .choice-btn {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    width: 100%;
+    text-align: left;
+    padding: 20px 22px;
+    margin-bottom: 12px;
+    background: white;
+    border: 0.5px solid var(--border);
+    border-radius: 12px;
+    font-family: 'Public Sans', sans-serif;
+    font-size: 15px;
+    line-height: 1.55;
+    color: #444;
+    cursor: pointer;
+    transition: border-color 0.2s, background 0.2s, transform 0.1s;
+  }
+
+  .choice-btn:hover {
+    border-color: var(--navy-700);
+    background: rgba(255,255,255,0.8);
+    transform: translateY(-1px);
+  }
+
+  .choice-btn.selected {
+    border: 1.5px solid var(--navy-800);
+    background: white;
+    color: var(--navy-900);
+  }
+
+  .choice-letter {
+    flex-shrink: 0;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: rgba(20,42,85,0.07);
+    font-size: 11px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--navy-800);
+    margin-top: 1px;
+    transition: background 0.2s, color 0.2s;
+  }
+
+  .choice-btn.selected .choice-letter {
+    background: var(--navy-800);
+    color: var(--parchment);
+  }
+
+  /* Likert */
+  .likert-statement {
+    font-size: 15px;
+    line-height: 1.65;
+    color: #555;
+    background: white;
+    border: 0.5px solid var(--border);
+    border-radius: 12px;
+    padding: 20px 22px;
+    margin-bottom: 28px;
+    font-style: italic;
+  }
+
+  .likert-row {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+
+  .likert-btn {
+    flex: 1;
+    padding: 14px 4px;
+    background: white;
+    border: 0.5px solid var(--border);
+    border-radius: 10px;
+    font-family: 'Public Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--navy-900);
+    cursor: pointer;
+    text-align: center;
+    transition: border-color 0.2s, background 0.2s;
+  }
+
+  .likert-btn:hover { border-color: var(--navy-700); }
+
+  .likert-btn.selected {
+    border: 1.5px solid var(--navy-800);
+    background: var(--navy-900);
+    color: var(--parchment);
+  }
+
+  .likert-labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.04em;
+    margin-bottom: 32px;
+    padding: 0 2px;
+  }
+
+  /* Nav buttons */
+  .nav-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 36px;
+  }
+
+  .btn-primary {
+    padding: 14px 32px;
+    background: var(--navy-900);
+    color: var(--parchment);
+    border: none;
+    border-radius: 8px;
+    font-family: 'Public Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    letter-spacing: 0.02em;
+    transition: background 0.2s, transform 0.1s;
+  }
+
+  .btn-primary:hover { background: var(--navy-800); transform: translateY(-1px); }
+  .btn-primary:active { transform: translateY(0); }
+  .btn-primary:disabled { opacity: 0.3; cursor: not-allowed; transform: none; }
+
+  .btn-ghost {
+    padding: 14px 20px;
+    background: transparent;
+    border: 0.5px solid var(--border-strong);
+    border-radius: 8px;
+    font-family: 'Public Sans', sans-serif;
+    font-size: 14px;
+    color: var(--muted);
+    cursor: pointer;
+    transition: border-color 0.2s, color 0.2s;
+  }
+
+  .btn-ghost:hover { border-color: var(--navy-700); color: var(--navy-800); }
+
+  /* ── RESULTS ── */
+  .results-wrap {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 48px 32px 100px;
+  }
+
+  .results-eyebrow {
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--plum);
+    font-weight: 500;
+    margin-bottom: 12px;
+  }
+
+  .results-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(28px, 5vw, 42px);
+    font-weight: 400;
+    color: var(--navy-900);
+    line-height: 1.15;
+    margin-bottom: 8px;
+  }
+
+  .results-sub {
+    font-size: 15px;
+    color: #777;
+    line-height: 1.65;
+    margin-bottom: 48px;
+    max-width: 520px;
+  }
+
+  .section-heading {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-weight: 400;
+    color: var(--navy-900);
+    margin-bottom: 6px;
+  }
+
+  .section-sub {
+    font-size: 13px;
+    color: #888;
+    margin-bottom: 20px;
+    line-height: 1.5;
+  }
+
+  /* Profile bars */
+  .profile-bar {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 16px 0;
+    border-bottom: 0.5px solid var(--border);
+  }
+
+  .profile-rank {
+    font-size: 11px;
+    color: var(--muted);
+    width: 20px;
+    flex-shrink: 0;
+    text-align: right;
+  }
+
+  .profile-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px;
+    font-weight: 400;
+    color: var(--navy-900);
+    width: 160px;
+    flex-shrink: 0;
+  }
+
+  .top-pill {
+    display: inline-block;
+    font-family: 'Public Sans', sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 2px 8px;
+    background: rgba(185, 165, 217, 0.2);
+    color: var(--navy-800);
+    border-radius: 20px;
+    margin-left: 6px;
+    vertical-align: middle;
+  }
+
+  .bar-track {
+    flex: 1;
+    height: 4px;
+    background: var(--border);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .bar-fill {
+    height: 4px;
+    background: var(--navy-800);
+    border-radius: 2px;
+    width: 0;
+    transition: width 1s ease;
+  }
+
+  .bar-pct {
+    font-size: 13px;
+    color: var(--muted);
+    width: 36px;
+    text-align: right;
+    flex-shrink: 0;
+  }
+
+  /* Splay and chain callout */
+  .splay-callout {
+    background: var(--navy-900);
+    border-radius: 16px;
+    padding: 36px 40px;
+    margin-top: 48px;
+    color: var(--parchment);
+  }
+
+  .splay-callout-label {
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--lilac);
+    font-weight: 500;
+    margin-bottom: 12px;
+  }
+
+  .splay-callout h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 26px;
+    font-weight: 400;
+    color: var(--parchment);
+    margin-bottom: 16px;
+    line-height: 1.3;
+  }
+
+  .splay-callout p {
+    font-size: 14px;
+    line-height: 1.75;
+    color: rgba(251,248,241,0.75);
+    margin-bottom: 12px;
+  }
+
+  .splay-steps {
+    list-style: none;
+    margin: 20px 0 28px;
+  }
+
+  .splay-steps li {
+    display: flex;
+    gap: 14px;
+    padding: 12px 0;
+    border-bottom: 0.5px solid rgba(255,255,255,0.1);
+    font-size: 14px;
+    color: rgba(251,248,241,0.85);
+    line-height: 1.55;
+  }
+
+  .splay-steps li:last-child { border-bottom: none; }
+
+  .step-num {
+    flex-shrink: 0;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    border: 0.5px solid rgba(255,255,255,0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    color: var(--lilac);
+    margin-top: 1px;
+  }
+
+  .restart-row {
+    text-align: center;
+    margin-top: 48px;
+    padding-top: 32px;
+    border-top: 0.5px solid var(--border);
+  }
+
+  .restart-btn {
+    font-size: 13px;
+    color: var(--muted);
+    background: none;
+    border: none;
+    cursor: pointer;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    font-family: 'Public Sans', sans-serif;
+  }
+
+  .restart-btn:hover { color: var(--navy-800); }
+
+  /* Divider */
+  .divider {
+    height: 0.5px;
+    background: var(--border);
+    margin: 40px 0;
+  }
+
+  /* Start button */
+  .start-btn {
+    display: inline-block;
+    padding: 16px 40px;
+    background: var(--navy-900);
+    color: var(--parchment);
+    border: none;
+    border-radius: 8px;
+    font-family: 'Public Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    letter-spacing: 0.02em;
+    transition: background 0.2s, transform 0.15s;
+  }
+
+  .start-btn:hover { background: var(--navy-800); transform: translateY(-2px); }
+  .start-btn:active { transform: translateY(0); }
+
+  /* ── ROLE MATCH LIST (accordion) ── */
+  .roles-list {
+    margin-bottom: 8px;
+  }
+
+  .role-row {
+    border: 0.5px solid var(--border);
+    border-radius: 12px;
+    background: white;
+    margin-bottom: 10px;
+    overflow: hidden;
+    transition: border-color 0.2s;
+  }
+
+  .role-row.open { border-color: var(--border-strong); }
+
+  .role-head {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    width: 100%;
+    text-align: left;
+    padding: 16px 20px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: 'Public Sans', sans-serif;
+    transition: background 0.2s;
+  }
+
+  .role-head:hover { background: rgba(20,42,85,0.02); }
+
+  .role-rank {
+    flex-shrink: 0;
+    font-size: 12px;
+    color: var(--muted);
+    width: 22px;
+    text-align: right;
+  }
+
+  .role-name {
+    flex: 1;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 19px;
+    font-weight: 400;
+    color: var(--navy-900);
+    line-height: 1.25;
+  }
+
+  .role-tag {
+    flex-shrink: 0;
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--navy-800);
+    background: rgba(20,42,85,0.06);
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-weight: 500;
+  }
+
+  .role-chevron {
+    flex-shrink: 0;
+    width: 16px;
+    height: 16px;
+    color: var(--muted);
+    transition: transform 0.25s ease;
+  }
+
+  .role-row.open .role-chevron { transform: rotate(180deg); }
+
+  .role-detail {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+  }
+
+  .role-detail-inner {
+    padding: 0 20px 20px;
+    font-size: 14px;
+    line-height: 1.7;
+    color: #555;
+    border-top: 0.5px solid var(--border);
+    padding-top: 16px;
+    margin: 0 20px;
+  }
+
+  .role-detail-inner p { margin-bottom: 12px; }
+  .role-detail-inner p:last-child { margin-bottom: 0; }
+  .role-detail-inner strong { color: var(--navy-900); font-weight: 500; }
+
+  .role-detail-placeholder {
+    font-style: italic;
+    color: var(--muted);
+  }
+
+  /* Caveat box at bottom of results */
+  .results-caveat {
+    background: white;
+    border: 0.5px solid var(--border);
+    border-radius: 12px;
+    padding: 20px 24px;
+    margin-top: 40px;
+  }
+
+  .results-caveat-label {
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--plum);
+    font-weight: 500;
+    margin-bottom: 8px;
+  }
+
+  .results-caveat p {
+    font-size: 13px;
+    line-height: 1.7;
+    color: #666;
+  }
+
+  @media (max-width: 540px) {
+    nav { padding: 16px 20px; }
+    .intro-wrap, .quiz-wrap, .results-wrap { padding-left: 20px; padding-right: 20px; }
+    .stats-row { gap: 24px; }
+    .profile-name { width: 120px; font-size: 16px; }
+    .splay-callout { padding: 28px 24px; }
+    .intro-title { font-size: 32px; }
+    .role-name { font-size: 17px; }
+    .role-tag { display: none; }
+  }
+
+  /* ── BATCH CONTROLS ── */
+  .batch-controls {
+    text-align: center;
+    padding: 24px 0 8px;
+  }
+
+  .btn-batch {
+    display: inline-block;
+    padding: 14px 36px;
+    background: white;
+    border: 0.5px solid var(--border-strong);
+    border-radius: 8px;
+    font-family: 'Public Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--navy-800);
+    cursor: pointer;
+    transition: border-color 0.2s, background 0.2s, transform 0.1s;
+  }
+  .btn-batch:hover { border-color: var(--navy-700); background: rgba(255,255,255,0.8); transform: translateY(-1px); }
+
+  /* ── RESULTS ACTIONS (download + see all) ── */
+  .results-actions {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 24px 0 8px;
+  }
+
+  /* ── ALL ROLES PAGE ── */
+  .allroles-wrap {
+    max-width: 980px;
+    margin: 0 auto;
+    padding: 48px 32px 100px;
+  }
+
+  .allroles-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    color: var(--muted);
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: 'Public Sans', sans-serif;
+    margin-bottom: 36px;
+    padding: 0;
+    transition: color 0.2s;
+  }
+  .allroles-back:hover { color: var(--navy-800); }
+
+  .allroles-intro {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(28px, 5vw, 40px);
+    font-weight: 400;
+    color: var(--navy-900);
+    line-height: 1.15;
+    margin-bottom: 12px;
+  }
+
+  .allroles-note {
+    font-size: 14px;
+    color: #777;
+    line-height: 1.65;
+    margin-bottom: 48px;
+    max-width: 560px;
+  }
+
+  .allroles-section { margin-bottom: 48px; }
+
+  .allroles-type-heading {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-weight: 400;
+    color: var(--navy-900);
+    padding-bottom: 10px;
+    border-bottom: 0.5px solid var(--border-strong);
+    margin-bottom: 0;
+  }
+
+  .allroles-table-wrap { overflow-x: auto; }
+
+  .allroles-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  .allroles-table th {
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 500;
+    font-family: 'Public Sans', sans-serif;
+    padding: 10px 12px;
+    text-align: center;
+    border-bottom: 0.5px solid var(--border);
+  }
+  .allroles-table th:first-child { text-align: left; min-width: 220px; }
+
+  .allroles-table td {
+    padding: 11px 12px;
+    border-bottom: 0.5px solid var(--border);
+    text-align: center;
+    font-size: 13px;
+    font-family: 'Public Sans', sans-serif;
+    font-weight: 500;
+  }
+  .allroles-table td:first-child {
+    text-align: left;
+    font-size: 15px;
+    color: var(--navy-900);
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 400;
+  }
+  .allroles-table tr:hover td { background: rgba(20,42,85,0.02); }
+
+  /* Score cell tiers */
+  .sc-0  { color: #ccc; }
+  .sc-1  { background: #EEF4F8; color: #999; }
+  .sc-2  { background: #CDD9EC; color: var(--navy-800); }
+  .sc-3  { background: var(--navy-800); color: var(--parchment); }
+
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-brand" href="#">Your Meaning Now</a>
+  <span class="nav-label">Phase 1 · Skills inventory</span>
+</nav>
+
+<!-- INTRO -->
+<div class="page active" id="page-intro">
+  <div class="intro-wrap">
+    <p class="intro-eyebrow">Phase 1 · The Village</p>
+    <h1 class="intro-title">What kind of work <em>actually</em> suits you?</h1>
+    <p class="intro-body">Before you start your splay and chain, it helps to know what kinds of labour genuinely energise you. This quiz maps your profile across seven types of work — so your list starts with real data, not guesses.</p>
+
+    <div class="stats-row">
+      <div class="stat-item"><span class="stat-num">35</span><span class="stat-lbl">Questions</span></div>
+      <div class="stat-item"><span class="stat-num">7</span><span class="stat-lbl">Labour types</span></div>
+      <div class="stat-item"><span class="stat-num">~10 min</span><span class="stat-lbl">To complete</span></div>
+    </div>
+
+    <div class="context-note">
+      <p class="context-note-label">How to use this</p>
+      <p>Answer honestly — not how you think you should answer. When you get your results, you will take your top two or three types into the splay and chain exercise in the course. They are a starting point, not a final verdict.</p>
+    </div>
+
+    <button class="start-btn" onclick="startQuiz()">Begin the quiz →</button>
+  </div>
+</div>
+
+<!-- QUIZ -->
+<div class="page" id="page-quiz">
+  <div class="quiz-wrap">
+    <div class="progress-header">
+      <span class="progress-type" id="q-type-label"></span>
+      <span class="progress-count" id="q-count-label"></span>
+    </div>
+    <div class="progress-track"><div class="progress-fill" id="progress-fill"></div></div>
+    <div id="question-area"></div>
+    <div class="nav-row">
+      <button class="btn-ghost" id="back-btn" onclick="goBack()">← Back</button>
+      <button class="btn-primary" id="next-btn" onclick="goNext()" disabled>Next →</button>
+    </div>
+  </div>
+</div>
+
+<!-- RESULTS -->
+<div class="page" id="page-results">
+  <div class="results-wrap">
+    <p class="results-eyebrow">Your results</p>
+    <h2 class="results-title">Your labour profile.</h2>
+    <p class="results-sub">Ranked by how strongly each type showed up for you. This is a snapshot based on your honest answers today — treat it as useful data, not a label.</p>
+
+    <div id="profile-bars"></div>
+
+    <div class="divider"></div>
+
+    <h3 class="section-heading">Roles that match your profile</h3>
+    <p class="section-sub">Your top 24 matched roles, revealed six at a time — closest first. Tap any role to see what it involves and the ways people work in it. These are starting points for your splay, not verdicts.</p>
+    <div id="roles-list" class="roles-list"></div>
+    <div id="batch-controls"></div>
+
+    <div class="splay-callout" id="splay-callout">
+      <p class="splay-callout-label">What to do next</p>
+      <h3>Now take this into your<br>splay and chain.</h3>
+      <p>Your labour profile is the first layer of data for your splay and chain exercise. Here is how to use it:</p>
+      <ol class="splay-steps">
+        <li>
+          <span class="step-num">1</span>
+          <span>Note your <strong>top two or three labour types</strong> from your profile above. These are the kinds of work that genuinely energise you.</span>
+        </li>
+        <li>
+          <span class="step-num">2</span>
+          <span>Open your splay — the prompted brainstorm in the course. Let your top types guide you as you write. What roles, projects, or fields involve a lot of this kind of work?</span>
+        </li>
+        <li>
+          <span class="step-num">3</span>
+          <span>Use the job areas above as <strong>sparks, not constraints</strong>. Add anything they remind you of. The point is to get everything on paper without filtering.</span>
+        </li>
+        <li>
+          <span class="step-num">4</span>
+          <span>Once you have your splay down, build your chain — order the items from least to most meaningful to try. Your labour profile can help you sense-check the order.</span>
+        </li>
+      </ol>
+      <p style="font-size:13px; color:rgba(251,248,241,0.55);">Remember: this is data, not destiny. Finding your meaning is iterative. This quiz has given you a better starting point — the rest is walking the road.</p>
+    </div>
+
+    <div class="results-caveat">
+      <p class="results-caveat-label">One thing to keep in mind</p>
+      <p>Each role above is a broad, general overview. Almost every job varies enormously depending on the employer, the seniority, and the specialism — a junior and a senior version of the same role can feel like completely different work. Treat these as a rough sketch of a typical version, useful enough to spark your splay, but no substitute for going and seeing the real thing for yourself.</p>
+    </div>
+
+    <div class="restart-row">
+      <button class="restart-btn" onclick="restartQuiz()">Retake the quiz from the beginning</button>
+    </div>
+  </div>
+</div>
+
+<!-- ALL ROLES -->
+<div class="page" id="page-allroles">
+  <div class="allroles-wrap">
+    <button class="allroles-back" onclick="showPage('page-results')">
+      ← Back to your results
+    </button>
+    <h2 class="allroles-intro">All 91 roles.</h2>
+    <p class="allroles-note">Every role in the framework, grouped by its dominant labour type. The numbers show how much of each kind of labour that role typically involves — 0 is negligible, 100 is defining. Use this as a reference, not a prescription.</p>
+    <div id="allroles-content"></div>
+  </div>
+</div>
+
+
+<script>
+const TYPES = [
+  { id: 'physical', label: 'Physical', desc: 'Working with your body, making and fixing things with your hands.' },
+  { id: 'analytical', label: 'Analytical', desc: 'Reasoning through problems, working with data and logic.' },
+  { id: 'creative', label: 'Creative', desc: 'Making things — designing, writing, building from imagination.' },
+  { id: 'social', label: 'Social & relational', desc: 'Helping, teaching, caring for, and connecting with people.' },
+  { id: 'persuasive', label: 'Persuasive', desc: 'Influencing others — selling, leading, negotiating.' },
+  { id: 'organisational', label: 'Organisational', desc: 'Systems, coordination, detail, and keeping things running smoothly.' },
+  { id: 'technical', label: 'Technical', desc: 'Operating, building, and engineering with tools, machines, or code.' }
+];
+
+// ── ROLE DATA ──
+// Each role scored 0–100 on the seven labour types (independent intensity scores).
+// Generated from quiz_labour_scores.xlsx — keep the two in sync if you edit scores.
+const ROLES = [
+  { slug:"personal-trainer", name:"Personal trainer", scores:{physical:80, analytical:25, creative:15, social:70, persuasive:35, organisational:30, technical:10} },
+  { slug:"physiotherapist", name:"Physiotherapist", scores:{physical:70, analytical:45, creative:10, social:65, persuasive:20, organisational:25, technical:20} },
+  { slug:"chef", name:"Chef", scores:{physical:80, analytical:20, creative:60, social:30, persuasive:10, organisational:55, technical:20} },
+  { slug:"carpenter-joiner", name:"Carpenter / joiner", scores:{physical:85, analytical:20, creative:35, social:15, persuasive:10, organisational:25, technical:55} },
+  { slug:"sports-coach", name:"Sports coach", scores:{physical:65, analytical:35, creative:20, social:70, persuasive:45, organisational:35, technical:10} },
+  { slug:"landscape-gardener", name:"Landscape gardener", scores:{physical:80, analytical:25, creative:40, social:15, persuasive:10, organisational:25, technical:15} },
+  { slug:"firefighter", name:"Firefighter", scores:{physical:85, analytical:25, creative:5, social:45, persuasive:10, organisational:30, technical:30} },
+  { slug:"paramedic", name:"Paramedic", scores:{physical:70, analytical:50, creative:5, social:55, persuasive:15, organisational:30, technical:35} },
+  { slug:"electrician", name:"Electrician", scores:{physical:70, analytical:35, creative:10, social:20, persuasive:15, organisational:25, technical:70} },
+  { slug:"plumber", name:"Plumber", scores:{physical:75, analytical:35, creative:10, social:20, persuasive:15, organisational:25, technical:60} },
+  { slug:"mechanic-automotive-technician", name:"Mechanic / automotive technician", scores:{physical:70, analytical:45, creative:10, social:20, persuasive:10, organisational:20, technical:75} },
+  { slug:"soldier-armed-forces", name:"Soldier / armed forces", scores:{physical:85, analytical:30, creative:10, social:45, persuasive:20, organisational:45, technical:35} },
+  { slug:"osteopath-sports-therapist", name:"Osteopath / sports therapist", scores:{physical:70, analytical:45, creative:10, social:55, persuasive:20, organisational:25, technical:15} },
+  { slug:"bricklayer-construction-worker", name:"Bricklayer / construction worker", scores:{physical:90, analytical:15, creative:10, social:15, persuasive:5, organisational:25, technical:35} },
+  { slug:"nurse", name:"Nurse", scores:{physical:65, analytical:45, creative:10, social:75, persuasive:20, organisational:40, technical:25} },
+  { slug:"data-analyst", name:"Data analyst", scores:{physical:5, analytical:85, creative:25, social:15, persuasive:20, organisational:40, technical:55} },
+  { slug:"research-scientist", name:"Research scientist", scores:{physical:25, analytical:90, creative:40, social:20, persuasive:25, organisational:35, technical:55} },
+  { slug:"economist", name:"Economist", scores:{physical:5, analytical:90, creative:30, social:15, persuasive:35, organisational:30, technical:40} },
+  { slug:"actuary", name:"Actuary", scores:{physical:5, analytical:90, creative:20, social:15, persuasive:25, organisational:45, technical:45} },
+  { slug:"management-consultant", name:"Management consultant", scores:{physical:5, analytical:75, creative:35, social:45, persuasive:65, organisational:50, technical:25} },
+  { slug:"financial-analyst", name:"Financial analyst", scores:{physical:5, analytical:85, creative:20, social:15, persuasive:30, organisational:45, technical:45} },
+  { slug:"policy-researcher", name:"Policy researcher", scores:{physical:5, analytical:80, creative:35, social:35, persuasive:40, organisational:35, technical:25} },
+  { slug:"market-researcher", name:"Market researcher", scores:{physical:5, analytical:75, creative:35, social:40, persuasive:30, organisational:40, technical:35} },
+  { slug:"accountant", name:"Accountant", scores:{physical:5, analytical:70, creative:10, social:20, persuasive:20, organisational:70, technical:35} },
+  { slug:"doctor-gp", name:"Doctor / GP", scores:{physical:40, analytical:75, creative:15, social:65, persuasive:25, organisational:35, technical:30} },
+  { slug:"solicitor", name:"Solicitor", scores:{physical:5, analytical:75, creative:25, social:35, persuasive:50, organisational:45, technical:15} },
+  { slug:"ux-researcher", name:"UX researcher", scores:{physical:5, analytical:70, creative:45, social:50, persuasive:25, organisational:35, technical:35} },
+  { slug:"intelligence-analyst", name:"Intelligence analyst", scores:{physical:10, analytical:85, creative:30, social:25, persuasive:25, organisational:45, technical:40} },
+  { slug:"graphic-designer", name:"Graphic designer", scores:{physical:10, analytical:25, creative:85, social:20, persuasive:25, organisational:25, technical:45} },
+  { slug:"filmmaker-director", name:"Filmmaker / director", scores:{physical:25, analytical:25, creative:85, social:50, persuasive:45, organisational:55, technical:40} },
+  { slug:"copywriter-writer", name:"Copywriter / writer", scores:{physical:5, analytical:35, creative:80, social:20, persuasive:45, organisational:25, technical:15} },
+  { slug:"architect", name:"Architect", scores:{physical:15, analytical:50, creative:75, social:25, persuasive:35, organisational:45, technical:60} },
+  { slug:"ux-designer", name:"UX designer", scores:{physical:5, analytical:50, creative:75, social:35, persuasive:25, organisational:35, technical:50} },
+  { slug:"photographer", name:"Photographer", scores:{physical:30, analytical:15, creative:80, social:35, persuasive:30, organisational:30, technical:45} },
+  { slug:"game-designer", name:"Game designer", scores:{physical:5, analytical:50, creative:80, social:25, persuasive:20, organisational:35, technical:55} },
+  { slug:"journalist", name:"Journalist", scores:{physical:15, analytical:45, creative:65, social:45, persuasive:35, organisational:35, technical:20} },
+  { slug:"musician-music-producer", name:"Musician / music producer", scores:{physical:30, analytical:20, creative:90, social:30, persuasive:40, organisational:30, technical:45} },
+  { slug:"video-editor-content-creator", name:"Video editor / content creator", scores:{physical:15, analytical:30, creative:75, social:25, persuasive:40, organisational:35, technical:60} },
+  { slug:"illustrator-animator", name:"Illustrator / animator", scores:{physical:10, analytical:20, creative:90, social:15, persuasive:25, organisational:25, technical:50} },
+  { slug:"interior-designer", name:"Interior designer", scores:{physical:20, analytical:25, creative:80, social:40, persuasive:35, organisational:40, technical:35} },
+  { slug:"fashion-designer", name:"Fashion designer", scores:{physical:25, analytical:20, creative:85, social:25, persuasive:35, organisational:35, technical:40} },
+  { slug:"author", name:"Author", scores:{physical:5, analytical:35, creative:90, social:20, persuasive:30, organisational:30, technical:10} },
+  { slug:"therapist-counsellor", name:"Therapist / counsellor", scores:{physical:10, analytical:50, creative:20, social:90, persuasive:25, organisational:25, technical:10} },
+  { slug:"teacher", name:"Teacher", scores:{physical:20, analytical:30, creative:45, social:80, persuasive:40, organisational:50, technical:20} },
+  { slug:"social-worker", name:"Social worker", scores:{physical:20, analytical:40, creative:15, social:85, persuasive:35, organisational:50, technical:15} },
+  { slug:"hr-manager", name:"HR manager", scores:{physical:5, analytical:35, creative:15, social:65, persuasive:40, organisational:60, technical:20} },
+  { slug:"community-organiser", name:"Community organiser", scores:{physical:15, analytical:25, creative:30, social:80, persuasive:55, organisational:50, technical:15} },
+  { slug:"career-coach", name:"Career coach", scores:{physical:5, analytical:40, creative:20, social:80, persuasive:40, organisational:30, technical:10} },
+  { slug:"youth-worker", name:"Youth worker", scores:{physical:30, analytical:20, creative:30, social:85, persuasive:35, organisational:35, technical:10} },
+  { slug:"teaching-assistant", name:"Teaching assistant", scores:{physical:25, analytical:20, creative:30, social:80, persuasive:25, organisational:35, technical:10} },
+  { slug:"prison-probation-officer", name:"Prison / probation officer", scores:{physical:35, analytical:35, creative:10, social:70, persuasive:40, organisational:45, technical:10} },
+  { slug:"midwife", name:"Midwife", scores:{physical:60, analytical:45, creative:10, social:80, persuasive:20, organisational:40, technical:25} },
+  { slug:"chaplain-pastoral-worker", name:"Chaplain / pastoral worker", scores:{physical:10, analytical:25, creative:30, social:85, persuasive:35, organisational:30, technical:5} },
+  { slug:"sales-executive", name:"Sales executive", scores:{physical:5, analytical:30, creative:20, social:55, persuasive:85, organisational:35, technical:15} },
+  { slug:"barrister-lawyer", name:"Barrister / lawyer", scores:{physical:5, analytical:70, creative:35, social:35, persuasive:80, organisational:40, technical:10} },
+  { slug:"marketing-manager", name:"Marketing manager", scores:{physical:5, analytical:45, creative:55, social:30, persuasive:65, organisational:50, technical:30} },
+  { slug:"recruiter", name:"Recruiter", scores:{physical:5, analytical:25, creative:15, social:60, persuasive:70, organisational:45, technical:15} },
+  { slug:"business-development-manager", name:"Business development manager", scores:{physical:5, analytical:40, creative:25, social:55, persuasive:80, organisational:45, technical:15} },
+  { slug:"politician", name:"Politician", scores:{physical:15, analytical:35, creative:30, social:60, persuasive:85, organisational:40, technical:10} },
+  { slug:"pr-consultant", name:"PR consultant", scores:{physical:5, analytical:30, creative:50, social:50, persuasive:70, organisational:40, technical:20} },
+  { slug:"entrepreneur-founder", name:"Entrepreneur / founder", scores:{physical:10, analytical:45, creative:50, social:45, persuasive:70, organisational:55, technical:35} },
+  { slug:"sports-talent-agent", name:"Sports / talent agent", scores:{physical:5, analytical:30, creative:20, social:60, persuasive:80, organisational:45, technical:10} },
+  { slug:"investment-banker", name:"Investment banker", scores:{physical:5, analytical:70, creative:20, social:35, persuasive:65, organisational:50, technical:25} },
+  { slug:"fundraiser", name:"Fundraiser", scores:{physical:5, analytical:30, creative:35, social:60, persuasive:75, organisational:45, technical:15} },
+  { slug:"brand-strategist", name:"Brand strategist", scores:{physical:5, analytical:55, creative:60, social:30, persuasive:55, organisational:40, technical:20} },
+  { slug:"political-adviser", name:"Political adviser", scores:{physical:5, analytical:60, creative:35, social:40, persuasive:65, organisational:40, technical:15} },
+  { slug:"project-manager", name:"Project manager", scores:{physical:5, analytical:40, creative:15, social:45, persuasive:40, organisational:85, technical:25} },
+  { slug:"operations-manager", name:"Operations manager", scores:{physical:15, analytical:45, creative:15, social:45, persuasive:35, organisational:85, technical:25} },
+  { slug:"event-planner", name:"Event planner", scores:{physical:25, analytical:25, creative:45, social:45, persuasive:40, organisational:80, technical:15} },
+  { slug:"executive-assistant", name:"Executive assistant", scores:{physical:10, analytical:25, creative:15, social:45, persuasive:25, organisational:80, technical:25} },
+  { slug:"supply-chain-manager", name:"Supply chain manager", scores:{physical:15, analytical:60, creative:10, social:25, persuasive:25, organisational:80, technical:35} },
+  { slug:"compliance-officer", name:"Compliance officer", scores:{physical:5, analytical:60, creative:10, social:25, persuasive:25, organisational:80, technical:25} },
+  { slug:"account-manager", name:"Account manager", scores:{physical:5, analytical:30, creative:20, social:60, persuasive:55, organisational:55, technical:15} },
+  { slug:"retail-manager", name:"Retail manager", scores:{physical:35, analytical:30, creative:15, social:55, persuasive:45, organisational:65, technical:15} },
+  { slug:"restaurant-hospitality-manager", name:"Restaurant / hospitality manager", scores:{physical:40, analytical:30, creative:20, social:60, persuasive:40, organisational:70, technical:15} },
+  { slug:"office-manager", name:"Office manager", scores:{physical:15, analytical:25, creative:15, social:50, persuasive:25, organisational:75, technical:20} },
+  { slug:"production-manager", name:"Production manager", scores:{physical:25, analytical:40, creative:20, social:45, persuasive:35, organisational:80, technical:35} },
+  { slug:"chief-of-staff", name:"Chief of staff", scores:{physical:5, analytical:50, creative:25, social:50, persuasive:50, organisational:75, technical:20} },
+  { slug:"logistics-coordinator", name:"Logistics coordinator", scores:{physical:20, analytical:50, creative:10, social:25, persuasive:20, organisational:80, technical:30} },
+  { slug:"software-engineer", name:"Software engineer", scores:{physical:5, analytical:70, creative:35, social:20, persuasive:15, organisational:30, technical:90} },
+  { slug:"electrical-engineer", name:"Electrical engineer", scores:{physical:25, analytical:65, creative:30, social:20, persuasive:15, organisational:30, technical:85} },
+  { slug:"cybersecurity-analyst", name:"Cybersecurity analyst", scores:{physical:5, analytical:70, creative:25, social:20, persuasive:20, organisational:35, technical:85} },
+  { slug:"devops-sre", name:"DevOps / SRE", scores:{physical:5, analytical:60, creative:20, social:20, persuasive:15, organisational:45, technical:90} },
+  { slug:"systems-analyst", name:"Systems analyst", scores:{physical:5, analytical:70, creative:25, social:30, persuasive:25, organisational:45, technical:70} },
+  { slug:"network-engineer", name:"Network engineer", scores:{physical:25, analytical:55, creative:10, social:20, persuasive:15, organisational:35, technical:85} },
+  { slug:"biomedical-engineer", name:"Biomedical engineer", scores:{physical:20, analytical:65, creative:40, social:25, persuasive:15, organisational:30, technical:80} },
+  { slug:"pilot", name:"Pilot", scores:{physical:40, analytical:50, creative:10, social:30, persuasive:15, organisational:50, technical:75} },
+  { slug:"audio-engineer-sound-technician", name:"Audio engineer / sound technician", scores:{physical:30, analytical:30, creative:60, social:25, persuasive:15, organisational:30, technical:80} },
+  { slug:"it-support-technician", name:"IT support technician", scores:{physical:20, analytical:45, creative:10, social:40, persuasive:15, organisational:30, technical:75} },
+  { slug:"robotics-automation-engineer", name:"Robotics / automation engineer", scores:{physical:25, analytical:70, creative:40, social:15, persuasive:15, organisational:30, technical:90} },
+  { slug:"data-engineer", name:"Data engineer", scores:{physical:5, analytical:70, creative:20, social:15, persuasive:10, organisational:40, technical:90} }
+];
+
+// ── ROLE DESCRIPTIONS ──
+// Fill each value with an HTML string: a brief description of the role
+// and the different ways people can work in it. Leave "" to show the placeholder.
+// Example: "electrician": "<p>Electricians install and maintain ...</p><p><strong>Ways to work:</strong> ...</p>",
+const DESCRIPTIONS = {
+  "personal-trainer": "", // Personal trainer,
+  "physiotherapist": "", // Physiotherapist,
+  "chef": "", // Chef,
+  "carpenter-joiner": "", // Carpenter / joiner,
+  "sports-coach": "", // Sports coach,
+  "landscape-gardener": "", // Landscape gardener,
+  "firefighter": "", // Firefighter,
+  "paramedic": "", // Paramedic,
+  "electrician": "", // Electrician,
+  "plumber": "", // Plumber,
+  "mechanic-automotive-technician": "", // Mechanic / automotive technician,
+  "soldier-armed-forces": "", // Soldier / armed forces,
+  "osteopath-sports-therapist": "", // Osteopath / sports therapist,
+  "bricklayer-construction-worker": "", // Bricklayer / construction worker,
+  "nurse": "", // Nurse,
+  "data-analyst": "", // Data analyst,
+  "research-scientist": "", // Research scientist,
+  "economist": "", // Economist,
+  "actuary": "", // Actuary,
+  "management-consultant": "", // Management consultant,
+  "financial-analyst": "", // Financial analyst,
+  "policy-researcher": "", // Policy researcher,
+  "market-researcher": "", // Market researcher,
+  "accountant": "", // Accountant,
+  "doctor-gp": "", // Doctor / GP,
+  "solicitor": "", // Solicitor,
+  "ux-researcher": "", // UX researcher,
+  "intelligence-analyst": "", // Intelligence analyst,
+  "graphic-designer": "", // Graphic designer,
+  "filmmaker-director": "", // Filmmaker / director,
+  "copywriter-writer": "", // Copywriter / writer,
+  "architect": "", // Architect,
+  "ux-designer": "", // UX designer,
+  "photographer": "", // Photographer,
+  "game-designer": "", // Game designer,
+  "journalist": "", // Journalist,
+  "musician-music-producer": "", // Musician / music producer,
+  "video-editor-content-creator": "", // Video editor / content creator,
+  "illustrator-animator": "", // Illustrator / animator,
+  "interior-designer": "", // Interior designer,
+  "fashion-designer": "", // Fashion designer,
+  "author": "", // Author,
+  "therapist-counsellor": "", // Therapist / counsellor,
+  "teacher": "", // Teacher,
+  "social-worker": "", // Social worker,
+  "hr-manager": "", // HR manager,
+  "community-organiser": "", // Community organiser,
+  "career-coach": "", // Career coach,
+  "youth-worker": "", // Youth worker,
+  "teaching-assistant": "", // Teaching assistant,
+  "prison-probation-officer": "", // Prison / probation officer,
+  "midwife": "", // Midwife,
+  "chaplain-pastoral-worker": "", // Chaplain / pastoral worker,
+  "sales-executive": "", // Sales executive,
+  "barrister-lawyer": "", // Barrister / lawyer,
+  "marketing-manager": "", // Marketing manager,
+  "recruiter": "", // Recruiter,
+  "business-development-manager": "", // Business development manager,
+  "politician": "", // Politician,
+  "pr-consultant": "", // PR consultant,
+  "entrepreneur-founder": "", // Entrepreneur / founder,
+  "sports-talent-agent": "", // Sports / talent agent,
+  "investment-banker": "", // Investment banker,
+  "fundraiser": "", // Fundraiser,
+  "brand-strategist": "", // Brand strategist,
+  "political-adviser": "", // Political adviser,
+  "project-manager": "", // Project manager,
+  "operations-manager": "", // Operations manager,
+  "event-planner": "", // Event planner,
+  "executive-assistant": "", // Executive assistant,
+  "supply-chain-manager": "", // Supply chain manager,
+  "compliance-officer": "", // Compliance officer,
+  "account-manager": "", // Account manager,
+  "retail-manager": "", // Retail manager,
+  "restaurant-hospitality-manager": "", // Restaurant / hospitality manager,
+  "office-manager": "", // Office manager,
+  "production-manager": "", // Production manager,
+  "chief-of-staff": "", // Chief of staff,
+  "logistics-coordinator": "", // Logistics coordinator,
+  "software-engineer": "", // Software engineer,
+  "electrical-engineer": "", // Electrical engineer,
+  "cybersecurity-analyst": "", // Cybersecurity analyst,
+  "devops-sre": "", // DevOps / SRE,
+  "systems-analyst": "", // Systems analyst,
+  "network-engineer": "", // Network engineer,
+  "biomedical-engineer": "", // Biomedical engineer,
+  "pilot": "", // Pilot,
+  "audio-engineer-sound-technician": "", // Audio engineer / sound technician,
+  "it-support-technician": "", // IT support technician,
+  "robotics-automation-engineer": "", // Robotics / automation engineer,
+  "data-engineer": "", // Data engineer
+};
+
+const QS = [
+  { type: 'physical', format: 'fc', text: 'You have a free afternoon. Which sounds more satisfying?', a: 'Build or fix something with your hands — a piece of furniture, a bike, something around the house.', b: 'Sit down and work through a complicated problem on paper.' },
+  { type: 'physical', format: 'likert', text: 'When I have been physically active during work or a project, I feel more satisfied than when I have been sitting still.' },
+  { type: 'physical', format: 'fc', text: 'Think about a job you would genuinely enjoy. Which pulls you more?', a: 'A role where most of your day involves moving, making, or using your body.', b: 'A role where most of your day involves thinking, communicating, or creating at a desk.' },
+  { type: 'physical', format: 'likert', text: 'I find I do my best thinking when I am doing something with my hands, not just sitting still.' },
+  { type: 'physical', format: 'fc', text: 'A project gets delivered. Which version of "I built this" feels better to you?', a: 'A physical object — you can hold it, touch it, see it in the world.', b: 'A piece of work that exists in a document, a system, or a campaign.' },
+
+  { type: 'analytical', format: 'fc', text: 'A friend shows you an interesting puzzle or dataset. What is your gut reaction?', a: 'Lean in — you want to find the pattern or the answer.', b: 'It looks interesting but you would rather hear the conclusion than work through it yourself.' },
+  { type: 'analytical', format: 'likert', text: 'I genuinely enjoy pulling apart a problem to understand how it works, even when there is no clear answer.' },
+  { type: 'analytical', format: 'fc', text: 'You are given a complex report. Which feels more natural?', a: 'Work through the data and figures yourself to form your own view.', b: 'Read the executive summary, get the key points, and move on.' },
+  { type: 'analytical', format: 'likert', text: 'I find abstract thinking — working with ideas, numbers, or logic rather than people or things — energising rather than draining.' },
+  { type: 'analytical', format: 'fc', text: 'Two aspects of a job — which would you prefer to spend more time on?', a: 'Research, analysis, and building a well-reasoned view from evidence.', b: 'Taking a decision and putting it into action, even without perfect information.' },
+
+  { type: 'creative', format: 'fc', text: 'You are given an open brief — no constraints, make whatever you want. How do you feel?', a: 'Energised — this is what you live for.', b: 'A bit lost — you work better with structure and clear parameters.' },
+  { type: 'creative', format: 'likert', text: 'Making things — whether writing, designing, composing, or building — is something I find genuinely absorbing, not just as a hobby.' },
+  { type: 'creative', format: 'fc', text: 'A project needs someone to either refine an existing process or invent something new. Which fits you better?', a: 'Invent something new — starting from a blank page is exciting.', b: 'Refine and improve — you would rather make something good, great.' },
+  { type: 'creative', format: 'likert', text: 'When I am working on something creative, I lose track of time more easily than in almost any other kind of work.' },
+  { type: 'creative', format: 'fc', text: 'Think about creative people you admire. What is your honest reaction?', a: 'I want that — creating things is something I actually want to do as work, not just occasionally.', b: 'I appreciate their work but I do not feel that same pull toward making things myself.' },
+
+  { type: 'social', format: 'fc', text: 'A colleague is struggling. What is your instinct?', a: 'You naturally want to help — listening to them and working through it together.', b: 'You want to help but find it more draining than energising after a while.' },
+  { type: 'social', format: 'likert', text: 'Work that involves genuinely helping or supporting other people feels more meaningful to me than work I do mostly on my own.' },
+  { type: 'social', format: 'fc', text: 'Two kinds of days — which would you rather have more of?', a: 'Days where your impact comes from the people you help, support, or develop.', b: 'Days where your impact comes from the work you produce or the problems you solve.' },
+  { type: 'social', format: 'likert', text: 'I find that understanding why someone thinks or feels the way they do is genuinely interesting to me, not just useful.' },
+  { type: 'social', format: 'fc', text: 'You are good at your job. What kind of "good" feels most like you?', a: 'People trust you — they come to you when they need support, guidance, or a straight conversation.', b: 'You deliver — your output is consistently strong and reliable.' },
+
+  { type: 'persuasive', format: 'fc', text: 'You want to change someone\'s mind. Honestly, what is your experience of that?', a: 'You enjoy it — you like making the case, handling objections, and bringing someone around.', b: 'It feels necessary sometimes, but it is not something you seek out.' },
+  { type: 'persuasive', format: 'likert', text: 'I feel genuinely energised when I am making a case, pitching an idea, or trying to win someone over to a point of view.' },
+  { type: 'persuasive', format: 'fc', text: 'Two job descriptions — which sounds more like you?', a: 'A role where you are regularly selling, negotiating, or leading people toward a decision.', b: 'A role where influence is occasional — mostly you get on with the work itself.' },
+  { type: 'persuasive', format: 'likert', text: 'When I believe in something strongly, I find it natural to bring other people with me — that comes fairly easily.' },
+  { type: 'persuasive', format: 'fc', text: 'Closing a deal or winning someone over — how does that feel when it goes well?', a: 'One of the most satisfying feelings in work — it is a real rush.', b: 'Good, but not the thing that gets you out of bed in the morning.' },
+
+  { type: 'organisational', format: 'fc', text: 'A big project is underway. Which role suits you better?', a: 'Coordinating all the moving parts — making sure everything is tracked, on time, and nothing slips.', b: 'Doing one of the major pieces of work well, and trusting others to handle coordination.' },
+  { type: 'organisational', format: 'likert', text: 'When things are chaotic or disorganised around me, I naturally want to bring order — it bothers me more than it bothers most people.' },
+  { type: 'organisational', format: 'fc', text: 'Two aspects of a working day — which sounds more appealing?', a: 'A clear list of things to get through, with the satisfaction of completing each one.', b: 'An open, exploratory day where you follow whatever pulls your interest.' },
+  { type: 'organisational', format: 'likert', text: 'I genuinely enjoy planning, scheduling, and making sure complex things run smoothly — it feels rewarding, not tedious.' },
+  { type: 'organisational', format: 'fc', text: 'You notice a process that could be made more efficient. What do you feel?', a: 'A real urge to fix it — inefficiency genuinely bothers you and improving it is satisfying.', b: 'It is mildly annoying but you can live with it — not the thing you want to spend energy on.' },
+
+  { type: 'technical', format: 'fc', text: 'You encounter a technical system you do not understand — a piece of code, a machine, a complex tool. What is your reaction?', a: 'You want to understand how it works — getting under the hood is satisfying.', b: 'You want it to work; how it works is not especially interesting to you.' },
+  { type: 'technical', format: 'likert', text: 'Building or working with technical systems — code, machines, hardware, or complex tools — is something I find genuinely interesting, not just a means to an end.' },
+  { type: 'technical', format: 'fc', text: 'Two colleagues — which sounds more like you?', a: 'The one who goes deep on the technical side — they can always be relied on to understand how things actually work.', b: 'The one who understands what the technical systems do and uses them well, without going into the weeds.' },
+  { type: 'technical', format: 'likert', text: 'When something breaks or behaves unexpectedly, I am more likely to want to diagnose it myself than to hand it to someone else.' },
+  { type: 'technical', format: 'fc', text: 'Think about a product or system you really respect. What draws you to it?', a: 'How it was built — the technical architecture or engineering behind it is what interests you.', b: 'What it does for people — the technical side is not what draws you.' }
+];
+
+function shuffle(arr) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+const shuffledQs = (function() {
+  const byType = {};
+  TYPES.forEach(t => { byType[t.id] = []; });
+  QS.forEach(q => byType[q.type].push(q));
+  TYPES.forEach(t => { byType[t.id] = shuffle(byType[t.id]); });
+  const interleaved = [];
+  for (let i = 0; i < 5; i++) {
+    TYPES.forEach(t => interleaved.push(byType[t.id][i]));
+  }
+  return interleaved;
+})();
+
+let currentQ = 0;
+let answers = {};
+
+function showPage(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+function startQuiz() {
+  showPage('page-quiz');
+  renderQuestion();
+}
+
+function renderQuestion() {
+  const q = shuffledQs[currentQ];
+  const total = shuffledQs.length;
+  const pct = Math.round((currentQ / total) * 100);
+  const typeInfo = TYPES.find(t => t.id === q.type);
+  const ans = answers[currentQ];
+
+  document.getElementById('q-type-label').textContent = typeInfo.label;
+  document.getElementById('q-count-label').textContent = `${currentQ + 1} of ${total}`;
+  document.getElementById('progress-fill').style.width = pct + '%';
+  document.getElementById('back-btn').style.display = currentQ === 0 ? 'none' : 'inline-block';
+
+  const nextBtn = document.getElementById('next-btn');
+  nextBtn.textContent = currentQ === total - 1 ? 'See my results →' : 'Next →';
+  nextBtn.disabled = ans === undefined;
+
+  const area = document.getElementById('question-area');
+
+  if (q.format === 'fc') {
+    area.innerHTML = `
+      <p class="q-text">${q.text}</p>
+      <button class="choice-btn ${ans === 'a' ? 'selected' : ''}" onclick="selectFC('a')">
+        <span class="choice-letter">A</span>
+        <span>${q.a}</span>
+      </button>
+      <button class="choice-btn ${ans === 'b' ? 'selected' : ''}" onclick="selectFC('b')">
+        <span class="choice-letter">B</span>
+        <span>${q.b}</span>
+      </button>
+    `;
+  } else {
+    area.innerHTML = `
+      <p class="q-text">"${q.text}"</p>
+      <div class="likert-row">
+        ${[1,2,3,4,5].map(v => `<button class="likert-btn ${ans === v ? 'selected' : ''}" onclick="selectLikert(${v})">${v}</button>`).join('')}
+      </div>
+      <div class="likert-labels"><span>Strongly disagree</span><span>Strongly agree</span></div>
+    `;
+  }
+}
+
+function selectFC(val) {
+  answers[currentQ] = val;
+  renderQuestion();
+}
+
+function selectLikert(val) {
+  answers[currentQ] = val;
+  renderQuestion();
+}
+
+function goNext() {
+  if (answers[currentQ] === undefined) return;
+  if (currentQ === shuffledQs.length - 1) {
+    buildResults();
+    showPage('page-results');
+  } else {
+    currentQ++;
+    renderQuestion();
+  }
+}
+
+function goBack() {
+  if (currentQ > 0) { currentQ--; renderQuestion(); }
+}
+
+function calcScores() {
+  const scores = {};
+  const maxes = {};
+  TYPES.forEach(t => { scores[t.id] = 0; maxes[t.id] = 0; });
+  shuffledQs.forEach((q, idx) => {
+    if (q.format === 'fc') maxes[q.type] += 2;
+    else maxes[q.type] += 5;
+    const ans = answers[idx];
+    if (ans === undefined) return;
+    if (q.format === 'fc') { if (ans === 'a') scores[q.type] += 2; }
+    else scores[q.type] += ans;
+  });
+  return TYPES.map(t => ({
+    ...t,
+    score: scores[t.id],
+    max: maxes[t.id],
+    pct: Math.round((scores[t.id] / maxes[t.id]) * 100)
+  })).sort((a, b) => b.pct - a.pct);
+}
+
+// ── Module-level state for role matching ──
+let rankedRoles24 = [];
+let batchShown = 0;
+let lastRankedTypes = [];
+
+function buildResults() {
+  const ranked = calcScores();
+  lastRankedTypes = ranked;
+
+  // Profile bars
+  const barsEl = document.getElementById('profile-bars');
+  barsEl.innerHTML = ranked.map((t, i) => `
+    <div class="profile-bar">
+      <span class="profile-rank">${i + 1}</span>
+      <span class="profile-name">${t.label}${i === 0 ? '<span class="top-pill">Top</span>' : ''}</span>
+      <div class="bar-track"><div class="bar-fill" style="width:0%" data-pct="${t.pct}"></div></div>
+      <span class="bar-pct">${t.pct}%</span>
+    </div>
+  `).join('');
+
+  requestAnimationFrame(() => {
+    setTimeout(() => {
+      document.querySelectorAll('.bar-fill').forEach(el => {
+        el.style.width = el.dataset.pct + '%';
+      });
+    }, 100);
+  });
+
+  // Compute top 24 matched roles and store for batched reveal
+  const userVec = {};
+  ranked.forEach(t => { userVec[t.id] = t.pct; });
+  rankedRoles24 = ROLES
+    .map(r => ({ ...r, match: matchScore(userVec, r), top: topLabour(r) }))
+    .sort((a, b) => b.match - a.match)
+    .slice(0, 24);
+
+  // Reset and reveal first batch of 6
+  batchShown = 0;
+  document.getElementById('roles-list').innerHTML = '';
+  showNextBatch();
+
+  document.querySelector('.splay-callout h3').innerHTML = `Now take this into your<br>splay and chain.`;
+}
+
+function roleCardHTML(r, i) {
+  const body = (DESCRIPTIONS[r.slug] && DESCRIPTIONS[r.slug].trim())
+    ? DESCRIPTIONS[r.slug]
+    : '<p class="role-detail-placeholder">A short description of this role — and the different ways people work in it — is coming soon.</p>';
+  return `
+    <div class="role-row" id="role-${i}">
+      <button class="role-head" onclick="toggleRole(${i})" aria-expanded="false">
+        <span class="role-rank">${i + 1}</span>
+        <span class="role-name">${r.name}</span>
+        <span class="role-tag">${r.top}</span>
+        <svg class="role-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 9l6 6 6-6"/></svg>
+      </button>
+      <div class="role-detail" id="role-detail-${i}">
+        <div class="role-detail-inner">${body}</div>
+      </div>
+    </div>`;
+}
+
+function showNextBatch() {
+  const start = batchShown * 6;
+  const end = Math.min(start + 6, rankedRoles24.length);
+  const listEl = document.getElementById('roles-list');
+  for (let i = start; i < end; i++) {
+    const div = document.createElement('div');
+    div.innerHTML = roleCardHTML(rankedRoles24[i], i).trim();
+    listEl.appendChild(div.firstElementChild);
+  }
+  batchShown++;
+  updateBatchControls();
+}
+
+function updateBatchControls() {
+  const ctrl = document.getElementById('batch-controls');
+  const shown = batchShown * 6;
+  if (shown < rankedRoles24.length) {
+    const next = Math.min(6, rankedRoles24.length - shown);
+    ctrl.innerHTML = `<div class="batch-controls">
+      <button class="btn-batch" onclick="showNextBatch()">Show ${next} more →</button>
+    </div>`;
+  } else {
+    // All 24 revealed — show final actions
+    ctrl.innerHTML = `<div class="results-actions">
+      <button class="btn-ghost" onclick="downloadTop10()">↓ Download top 10</button>
+      <button class="btn-primary" onclick="showAllRolesPage()">See all 91 roles →</button>
+    </div>`;
+  }
+}
+
+// ── Matching logic ──
+// Best 6 of 7 average closeness. Change this function to adjust matching.
+function matchScore(userVec, role) {
+  const closeness = TYPES.map(t => 100 - Math.abs((userVec[t.id] || 0) - role.scores[t.id]));
+  closeness.sort((a, b) => b - a);
+  const best6 = closeness.slice(0, 6);
+  return best6.reduce((sum, v) => sum + v, 0) / best6.length;
+}
+
+function topLabour(role) {
+  let bestId = TYPES[0].id, bestVal = -1;
+  TYPES.forEach(t => {
+    if (role.scores[t.id] > bestVal) { bestVal = role.scores[t.id]; bestId = t.id; }
+  });
+  return TYPES.find(t => t.id === bestId).label.split(' ')[0];
+}
+
+function toggleRole(i) {
+  const row = document.getElementById('role-' + i);
+  const detail = document.getElementById('role-detail-' + i);
+  const head = row.querySelector('.role-head');
+  const isOpen = row.classList.contains('open');
+  if (isOpen) {
+    row.classList.remove('open');
+    detail.style.maxHeight = '0';
+    head.setAttribute('aria-expanded', 'false');
+  } else {
+    row.classList.add('open');
+    detail.style.maxHeight = detail.scrollHeight + 'px';
+    head.setAttribute('aria-expanded', 'true');
+  }
+}
+
+// ── All roles page ──
+function showAllRolesPage() {
+  showPage('page-allroles');
+  renderAllRoles();
+}
+
+function scoreClass(v) {
+  if (v >= 75) return 'sc-3';
+  if (v >= 45) return 'sc-2';
+  if (v >= 20) return 'sc-1';
+  return 'sc-0';
+}
+
+function renderAllRoles() {
+  const container = document.getElementById('allroles-content');
+  if (container.dataset.rendered) return; // Only build once
+  container.dataset.rendered = '1';
+
+  const typeOrder = ['physical','analytical','creative','social','persuasive','organisational','technical'];
+  const typeLabels = { physical:'Physical', analytical:'Analytical', creative:'Creative',
+    social:'Social & relational', persuasive:'Persuasive', organisational:'Organisational', technical:'Technical' };
+
+  const colShort = ['PHY','ANA','CRE','SOC','PER','ORG','TEC'];
+
+  const groups = {};
+  typeOrder.forEach(id => { groups[id] = []; });
+  ROLES.forEach(r => {
+    // Group by highest-scoring type
+    let topId = typeOrder[0], topV = -1;
+    typeOrder.forEach(id => { if (r.scores[id] > topV) { topV = r.scores[id]; topId = id; } });
+    groups[topId].push(r);
+  });
+
+  container.innerHTML = typeOrder.map(typeId => {
+    const label = typeLabels[typeId];
+    const rows = groups[typeId];
+    return `
+      <div class="allroles-section">
+        <h3 class="allroles-type-heading">${label}</h3>
+        <div class="allroles-table-wrap">
+          <table class="allroles-table">
+            <thead>
+              <tr>
+                <th>Role</th>
+                ${colShort.map(c => `<th>${c}</th>`).join('')}
+              </tr>
+            </thead>
+            <tbody>
+              ${rows.map(r => `<tr>
+                <td>${r.name}</td>
+                ${typeOrder.map(id => {
+                  const v = r.scores[id];
+                  return `<td class="${scoreClass(v)}">${v}</td>`;
+                }).join('')}
+              </tr>`).join('')}
+            </tbody>
+          </table>
+        </div>
+      </div>`;
+  }).join('');
+}
+
+// ── Download top 10 ──
+function downloadTop10() {
+  const top10 = rankedRoles24.slice(0, 10);
+  const date = new Date().toLocaleDateString('en-GB', {day:'numeric', month:'long', year:'numeric'});
+  const profileRows = lastRankedTypes.map(t =>
+    `<tr><td>${t.label}</td><td><div class="dl-bar-wrap"><div class="dl-bar" style="width:${t.pct}%"></div></div></td><td>${t.pct}%</td></tr>`
+  ).join('');
+  const roleRows = top10.map((r, i) => {
+    const desc = (DESCRIPTIONS[r.slug] && DESCRIPTIONS[r.slug].trim())
+      ? DESCRIPTIONS[r.slug]
+      : '<p><em>Description coming soon.</em></p>';
+    return `<div class="dl-role">
+      <div class="dl-role-head">
+        <span class="dl-rank">${i + 1}</span>
+        <span class="dl-name">${r.name}</span>
+        <span class="dl-tag">${r.top}</span>
+      </div>
+      <div class="dl-role-body">${desc}</div>
+    </div>`;
+  }).join('');
+
+  const docHTML = `<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Your career matches — Your Meaning Now</title>
+<style>
+  body { font-family: Georgia, serif; max-width: 680px; margin: 40px auto; padding: 0 24px; color: #0B0F18; background: #FBF8F1; }
+  h1 { font-size: 36px; font-weight: 400; color: #142A55; margin-bottom: 4px; }
+  .meta { font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: #8A8A8A; margin-bottom: 48px; font-family: Arial, sans-serif; }
+  h2 { font-size: 22px; font-weight: 400; color: #142A55; border-bottom: 0.5px solid #ddd; padding-bottom: 8px; margin: 40px 0 16px; }
+  table { width: 100%; border-collapse: collapse; margin-bottom: 32px; }
+  td { padding: 10px 8px; border-bottom: 0.5px solid #eee; font-size: 15px; }
+  td:first-child { width: 180px; font-family: Arial, sans-serif; font-size: 13px; color: #555; }
+  .dl-bar-wrap { background: #eee; border-radius: 2px; height: 6px; flex: 1; min-width: 120px; }
+  .dl-bar { background: #1B3667; height: 6px; border-radius: 2px; }
+  .dl-role { border: 0.5px solid #ddd; border-radius: 10px; padding: 20px; margin-bottom: 16px; background: white; }
+  .dl-role-head { display: flex; align-items: baseline; gap: 12px; margin-bottom: 12px; }
+  .dl-rank { font-family: Arial, sans-serif; font-size: 12px; color: #8A8A8A; }
+  .dl-name { font-size: 20px; color: #142A55; flex: 1; }
+  .dl-tag { font-family: Arial, sans-serif; font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; background: rgba(20,42,85,0.06); color: #1B3667; padding: 3px 8px; border-radius: 20px; }
+  .dl-role-body { font-size: 14px; line-height: 1.7; color: #555; }
+  .dl-role-body p { margin: 0 0 10px; }
+  .caveat { font-size: 13px; color: #888; line-height: 1.65; border-top: 0.5px solid #ddd; margin-top: 40px; padding-top: 20px; font-family: Arial, sans-serif; }
+</style>
+</head>
+<body>
+  <h1>Your top 10 career matches.</h1>
+  <p class="meta">Your Meaning Now &middot; Generated ${date}</p>
+  <h2>Your labour profile</h2>
+  <table>${profileRows}</table>
+  <h2>Top 10 matched roles</h2>
+  ${roleRows}
+  <p class="caveat">Each role above is a broad, general overview. Almost every job varies enormously depending on the employer, the seniority, and the specialism. Treat these as a starting point for your splay — not a verdict on what you should do.</p>
+</body>
+</html>`;
+
+  const blob = new Blob([docHTML], { type: 'text/html' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = 'your-top-10-career-matches.html';
+  document.body.appendChild(a); a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+
+function restartQuiz() {
+  answers = {};
+  currentQ = 0;
+  showPage('page-intro');
+}
+</script>
+</body>
+</html>
